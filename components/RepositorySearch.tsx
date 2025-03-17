@@ -8,12 +8,12 @@ import RepositoryCard from '@/components/RepositoryCard';
 import Input from '@/components/Input';
 import BottomInfo from '@/components/BottomInfo';
 import Spinner from '@/components/Spinner';
-
+import { List, Trash2 } from 'lucide-react';
 export default function RepositorySearch() {
 
     const [value, setValue] = useState<string>("");
     const { repositories, loading, getRepositories, error, setError, setRepositories } = useGetRepositories();
-    const { selectedRepositories } = useRepositoryStore();
+    const { selectedRepositories, clearRepositories } = useRepositoryStore();
 
     useEffect(() => {
         getRepositories(value);
@@ -26,11 +26,25 @@ export default function RepositorySearch() {
     return (
         <>
             <Input setValue={setValue} value={value} />
-            <div className="flex justify-end">
+            <div className={`flex gap-2 w-full ${selectedRepositories.length > 0 ? 'justify-between' : 'justify-end'}`}>
+                {selectedRepositories.length > 0 && (
+                    <button
+                        onClick={() => {
+                            clearRepositories();
+                        }}
+                        className="flex items-center gap-2 text-sm rounded-md py-2 px-4 w-fit bg-red-700 text-white cursor-pointer hover:bg-red-800 transition-colors"
+                    >
+                        <Trash2 className="w-4" />
+                        Borrar seleccionados
+                    </button>
+                )}
                 <Link
                     href="/selected"
-                    className="text-sm rounded-md py-2 px-4 w-fit bg-emerald-700 text-white"
-                >Ver seleccionados ({selectedRepositories.length})</Link>
+                    className="flex items-center gap-2 text-sm rounded-md py-2 px-4 w-fit text-center bg-emerald-700 text-white cursor-pointer hover:bg-emerald-800 transition-colors"
+                >
+                    <List className="w-4" />
+                    Ver seleccionados ({selectedRepositories.length})
+                </Link>
             </div>
             <div className="flex flex-col gap-4 w-full">
                 {loading && value.length >= 3 && <Spinner />}
