@@ -23,4 +23,16 @@ Then, run the development server:
 npm run dev
 ```
 
+## Running tests
+
+```bash
+npm run test
+```
+
+## Running tests with coverage
+
+```bash
+npm run test:coverage
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
