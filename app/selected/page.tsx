@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import useRepositoryStore from "@/stores/repositoryStore";
-import { Repository } from '@/types/repositories'
 import RepositoryCard from '@/components/RepositoryCard'
 import BottomInfo from '@/components/BottomInfo';
+import { Repository } from '@/types/repositories'
 import { ArrowLeft } from 'lucide-react'
 
 export default function SelectedRepositories() {
