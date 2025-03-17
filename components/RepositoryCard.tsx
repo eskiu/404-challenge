@@ -1,19 +1,30 @@
-import { Repository } from "@/types/repositories";
-import { ExternalLink, Star, Trash } from "lucide-react";
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
+import useRepositoryStore from "@/stores/repositoryStore";
+import { Repository } from "@/types/repositories";
+import { ExternalLink, Star, Plus } from "lucide-react";
 
-interface RepositoryCardProps {
-    repository: Repository;
-}
+export default function RepositoryCard({ repository }: { repository: Repository; }) {
 
-export default function RepositoryCard({ repository }: RepositoryCardProps) {
+    const { selectedRepositories, addRepository, removeRepository } = useRepositoryStore();
+    
+    const isSelected = selectedRepositories.some(repo => repo.id === repository.id);
 
     return (
         <div
             key={repository.id}
             className="border rounded-lg p-4 flex items-center gap-4 hover:bg-muted/50 transition-colors"
         >
+            <button
+                onClick={() => isSelected ? removeRepository(repository.id) : addRepository(repository)}
+                className={`rounded-md cursor-pointer transition-transform duration-300 ease-in-out ${isSelected
+                    ? "text-red-800 hover:text-red-900 rotate-45"
+                    : "text-green-800 hover:text-green-900 rotate-0"
+                    }`}
+            >
+                <Plus />
+            </button>
+
             <Image
                 src={repository.owner.avatar_url}
                 alt={`${repository.owner.login}'s avatar`}

@@ -2,11 +2,11 @@ import { useState, useCallback } from "react";
 import { Repository } from "@/types/repositories";
 import { debounce } from "@/utils/debounce";
 
+
 export default function useGetRepositories() {
     const [repositories, setRepositories] = useState<Repository[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
 
     const getRepositories = useCallback(
         debounce(async (value: string) => {
@@ -26,8 +26,17 @@ export default function useGetRepositories() {
                     `https://api.github.com/search/repositories?q=${encodeURIComponent(value)}&sort=stars&order=desc&per_page=20`
                 );
                 const data = await response.json();
-                if (response.ok) {
-                    setRepositories(data.items);
+
+                const repositories = data.items.map(({ id, name, owner, stargazers_count, html_url }: Repository) => ({
+                    id,
+                    name,
+                    owner,
+                    stargazers_count,
+                    html_url,
+                }));
+
+                if (response.ok && repositories.length > 0) {
+                    setRepositories(repositories);
                 } else {
                     setError("Error al obtener los repositorios");
                     setRepositories([]);

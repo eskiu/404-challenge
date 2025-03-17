@@ -1,4 +1,4 @@
-import BodySearch from "@/components/Home/BodySearch";
+import BodySearch from "@/components/BodySearch";
 
 export default function Home() {
   return (
