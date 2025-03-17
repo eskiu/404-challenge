@@ -5,7 +5,7 @@ export default function BottomInfo({ repositories }: { repositories: Repository[
     return (
         <>
             {repositories.length > 0 && (
-                <div className="p-4 border-t flex justify-between items-center w-full">
+                <div className="p-4 mt-2 border-t flex justify-between items-center w-full">
                     <p>Total de repositorios: {repositories.length}</p>
                     <div className="flex items-center">
                         <Star className="h-5 w-5 text-yellow-500 fill-yellow-500 mr-1" />

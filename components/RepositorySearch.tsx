@@ -9,14 +9,18 @@ import Input from '@/components/Input';
 import BottomInfo from '@/components/BottomInfo';
 import Spinner from '@/components/Spinner';
 
-export default function BodySearch() {
+export default function RepositorySearch() {
 
     const [value, setValue] = useState<string>("");
-    const { repositories, loading, getRepositories, error } = useGetRepositories();
+    const { repositories, loading, getRepositories, error, setError, setRepositories } = useGetRepositories();
     const { selectedRepositories } = useRepositoryStore();
 
     useEffect(() => {
         getRepositories(value);
+        if (value.length <= 3) {
+            setError("Ingrese al menos 3 caracteres para realizar la búsqueda.");
+            setRepositories([]);
+        }
     }, [value, getRepositories]);
 
     return (
@@ -29,9 +33,9 @@ export default function BodySearch() {
                 >Ver seleccionados ({selectedRepositories.length})</Link>
             </div>
             <div className="flex flex-col gap-4 w-full">
-                {loading && value.length > 3 && <Spinner />}
+                {loading && value.length >= 3 && <Spinner />}
                 {error && !loading && <p className="text-sm text-center">{error}</p>}
-                {!error && value.length > 3 && repositories.map((repository) => (
+                {!error && value.length >= 3 && repositories.map((repository) => (
                     <RepositoryCard
                         key={repository.id}
                         repository={repository}

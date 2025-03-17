@@ -7,7 +7,7 @@ import RepositoryCard from '@/components/RepositoryCard'
 import BottomInfo from '@/components/BottomInfo';
 import { ArrowLeft } from 'lucide-react'
 
-export default function page() {
+export default function SelectedRepositories() {
     const { selectedRepositories } = useRepositoryStore();
 
     return (

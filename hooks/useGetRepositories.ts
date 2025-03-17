@@ -2,7 +2,6 @@ import { useState, useCallback } from "react";
 import { Repository } from "@/types/repositories";
 import { debounce } from "@/utils/debounce";
 
-
 export default function useGetRepositories() {
     const [repositories, setRepositories] = useState<Repository[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -11,11 +10,7 @@ export default function useGetRepositories() {
     const getRepositories = useCallback(
         debounce(async (value: string) => {
 
-            if (value.length < 3) {
-                setError("Ingrese al menos 3 caracteres para realizar la búsqueda.");
-                setRepositories([]);
-                return;
-            }
+            if (value.length < 3) return;
 
             setError(null);
             setRepositories([]);
@@ -57,5 +52,6 @@ export default function useGetRepositories() {
         getRepositories,
         loading,
         error,
+        setError,
     }
 }
