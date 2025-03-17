@@ -3,6 +3,15 @@
 
 This is a challenge made it for a job interview to the company [404 Crafters](http://www.proyecto404.com/).
 
+## Technologies used
+
+- Next.js
+- Tailwind CSS
+- TypeScript
+- React
+- Jest
+- Zustand
+
 ## Getting Started
 
 First, clone the repository:
